@@ -1,36 +1,37 @@
-name: R Test
+name: CI
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: install project
-      uses: r-lib/actions/setup-r@v2
-      with:
-        r-version: 4.0
-
-    - name: Check out code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        r-version: 4.0.2
+
     - name: Install devtools dependencies
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y libcurl4-openssl-dev libssl-dev
-
-    - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("devtools","testthat"))'
+        sudo apt-get update
+        sudo apt-get install -y libcurl4-openssl-dev libssl-dev
 
-    - name: Run tests
+    - name: Install devtools
+      run: |
+        Rscript -e 'install.packages("devtools")'
+
+    - name: Install package dependencies
+      run: |
+        Rscript -e 'devtools::install_deps(dependencies = TRUE)'
+
+    - name: Test package
       run: |
         Rscript -e 'devtools::install()'
         Rscript -e 'devtools::test()'
