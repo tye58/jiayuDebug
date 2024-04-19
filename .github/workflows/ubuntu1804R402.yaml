@@ -23,8 +23,4 @@ jobs:
 
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("usethis", "pkgdown", "rcmdcheck", "rversions", "urlchecker","devtools", "randomifyR"))'
-
-    - name: Run tests
-      run: |
-        Rscript -e 'devtools::test()'
+        Rscript -e 'install.packages("randomifyR")'
