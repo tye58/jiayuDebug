@@ -21,7 +21,7 @@ jobs:
     - name: Install devtools dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libcurl4-openssl-dev libssl-dev
+        sudo apt-get install -y libcurl4-openssl-dev libssl-dev libharfbuzz-dev libfribidi-dev
         sudo apt install libgit2-dev
         sudo apt-get install build-essential
         sudo apt-get install autoconf automake gdb git libffi-dev zlib1g-dev libssl-dev
